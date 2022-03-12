@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 16:57:03 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 17:16:44 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 17:16:53 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
-int	main(int ac, char **av,char **env)
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_pipex		pipex;
-	
-	if (ac != 5)
-	{
-		ft_putstr_fd("Wrond number of argument\n", 2);
-		return (1);
-	}
-	ft_memset(&pipex, 0, sizeof(t_pipex));
-	if (parsing(&pipex, &av[1], env))
-		return (1);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

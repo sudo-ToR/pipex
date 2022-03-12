@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 16:57:03 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 15:46:35 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 15:55:44 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
-int	main(int ac, char **av,char **env)
+
+void	ft_putstr_fd(char *s, int fd)
 {
-	t_pipex		pipex;
-	
-	if (ac != 5)
-	{
-		ft_putstr_fd("Wrond number of argument\n", 2);
-		return (1);
-	}
-	ft_memset(&pipex, 0, sizeof(t_pipex));
-	if (parsing(&pipex, &av[1], env))
-		return (1);
-	return (0);
+	if (s == NULL)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

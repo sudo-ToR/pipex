@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 16:57:03 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 17:32:45 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 17:32:53 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-#include <stdio.h>
-int	main(int ac, char **av,char **env)
+
+char	*ft_strrchr(const char *s, int c)
 {
-	t_pipex		pipex;
-	
-	if (ac != 5)
-	{
-		ft_putstr_fd("Wrond number of argument\n", 2);
-		return (1);
-	}
-	ft_memset(&pipex, 0, sizeof(t_pipex));
-	if (parsing(&pipex, &av[1], env))
-		return (1);
-	return (0);
+	size_t	size;
+	char	*tmp;
+
+	tmp = (char *)s;
+	size = ft_strlen(tmp);
+	while (size != 0 && tmp[size] != c)
+		size--;
+	if (tmp[size] != c)
+		return (NULL);
+	return (&tmp[size]);
 }

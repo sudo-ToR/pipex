@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 16:57:03 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 15:33:30 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 17:26:08 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
-int	main(int ac, char **av,char **env)
+#ifndef PIPEX_H
+
+# define PIPEX_H
+
+# include "parsing.h"
+# include "utils.h"
+
+#include <stdlib.h>
+#include <unistd.h>
+
+# define OPEN_FAILURE 1
+
+typedef struct s_pipex
 {
-	t_pipex		pipex;
-	
-	if (ac != 5)
-	{
-		ft_putstr_fd("Wrond number of argument\n", 2);
-		return (1);
-	}
-	ft_memset(&pipex, 0, sizeof(t_pipex));
-	if (parsing(&pipex, &av[1], env))
-		return (1);
-	return (0);
-}
+    char    **env;
+    int     fd_1;
+    int     fd_2;
+    char    **cmd_1;
+    char    **cmd_2;
+}              t_pipex;
+
+int	parsing(t_pipex *pipe, char **cmd, char **env);
+
+#endif

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 16:57:03 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 15:46:27 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 17:33:06 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include <stdio.h>
-int	main(int ac, char **av,char **env)
-{
-	t_pipex		pipex;
-	
-	if (ac != 5)
-	{
-		ft_putstr_fd("Wrond number of argument\n", 2);
-		return (1);
-	}
-	ft_memset(&pipex, 0, sizeof(t_pipex));
-	if (parsing(&pipex, &av[1], env))
-		return (1);
-	return (0);
-}
+#ifndef UTILS_H
+
+# define UTILS_H
+
+#include <unistd.h>
+
+size_t	ft_strlen(const char *s);
+void	ft_putstr_fd(char *s, int fd);
+void	*ft_memset(void *s, int c, size_t n);
+char	**ft_split(char *str, char *charset);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strdup(const char *s);
+void	free_str_table(char **to_free);
+char	*ft_strrchr(const char *s, int c);
+
+#endif
