@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:30 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 22:19:18 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 22:14:19 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 22:28:46 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
+#ifndef EXEC_H
 
-# define PIPEX_H
+# define EXEC_H
 
-# include "parsing.h"
-# include "utils.h"
-#include "exec.h"
+# define EXEC_FAIL -1
 
-#include <stdlib.h>
-#include <unistd.h>
-
-# define OPEN_FAILURE 1
-
-typedef struct s_pipex
-{
-	char	**env;
-	int		fd_1;
-	int		fd_2;
-	char	**cmd_1;
-	char	**cmd_2;
-} 				t_pipex;
-
-int		parsing(t_pipex *pipe, char **cmd, char **env);
-int		exec(t_pipex *pipex);
+# include <sys/wait.h>
+# include <sys/types.h>
 
 #endif

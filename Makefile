@@ -6,7 +6,7 @@
 #    By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 15:31:28 by lnoirot           #+#    #+#              #
-#    Updated: 2022/03/12 17:33:14 by lnoirot          ###   ########.fr        #
+#    Updated: 2022/03/12 22:33:57 by lnoirot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,17 @@ INCLUDES	=	-I$(INC_PATH)
 
 OBJ_PATH	=	obj/
 
-SRCS_PATH 		=	srcs/
+SRCS_PATH 		=	srcs
 PARSING_PATH	=	parsing/
 UTILS_PATH		=	utils/
+EXEC_PATH		=	exec/
 
 PARSING_LST		=	$(addprefix $(PARSING_PATH), \
 									parsing.c \
+					)
+
+EXEC_LST		=	$(addprefix $(EXEC_PATH), \
+									exec.c \
 					)
 
 UTILS_LST		=	$(addprefix $(UTILS_PATH), \
@@ -39,16 +44,20 @@ UTILS_LST		=	$(addprefix $(UTILS_PATH), \
 									ft_strdup.c \
 									free_str_table.c \
 									ft_strrchr.c \
+									ft_strjoin.c \
 					)
 
 SRCS			=	$(addprefix $(SRCS_PATH), \
 									main.c \
 									$(PARSING_LST) \
+									$(UTILS_LST) \
+									$(EXEC_LST) \
 					)
 
 SRCS_LIST		= main.c \
 					$(PARSING_LST) \
-					$(UTILS_LST)
+					$(UTILS_LST) \
+					$(EXEC_LST)
 
 OBJS	=	$(addprefix $(OBJ_PATH), $(SRCS_LIST:.c=.o))
 
@@ -58,7 +67,7 @@ $(OBJ_PATH)%.o:		$(SRCS_PATH)/%.c
 DEPS	=	$(OBJS:.o=.d)
 
 all:	
-			@mkdir -p obj obj/parsing obj/utils
+			@mkdir -p obj obj/parsing obj/utils obj/exec
 			$(MAKE) ${NAME}
 
 ${NAME}:	$(OBJS)

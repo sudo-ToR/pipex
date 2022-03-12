@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:39:52 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 17:43:36 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/12 22:34:48 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,88 @@ int	store_cmd(char *cmd_1, char *cmd_2, t_pipex *pipex)
 	return (0);
 }
 
-char	*translate_var_env(char *to_translate)
+int		find_char_index(char *str, char c)
+{
+	int	ret;
+
+	ret = 0;
+	if (!str)
+		return (0);
+	while (str[ret] && str[ret] != c)
+		ret++;
+	return (ret);
+}
+
+char	*find_var_value(char *key, char **env)
 {
 	char	*value;
 	int		i;
 
 	i = 0;
-	if (!to_translate)
+	if (!env)
 		return (NULL);
-	while (to_translate[i] && to_translate[i] != '=')
+	while (ft_strncmp(key, env[i], ft_strlen(key)))
 		i++;
-	
-	value = ft_strdup(&to_translate[i + 1]);
+	if (!env[i])
+		return (NULL);
+	value = ft_strdup(&env[i][find_char_index(env[i], '=')]);
 	return (value);
 }
 
-char	*find_var_value(char **env, char *var_name)
+int	try_path(char *to_try, char *name)
 {
-	int		i;
-	char	*var_value;
+	char	*path;
+	char	*tmp;
+	int		ret;
 
-	i = 0;
-	while (env[i] && ft_strncmp(var_name, env[i], ft_strlen(var_name)))
-		i++;
-	var_value = translate_var_env(env[i]);
-	return(var_value);
+	
+	tmp = to_try;
+	to_try = ft_strjoin(to_try, "/");
+	free(tmp);
+	path = ft_strjoin(to_try, name);
+	ret = access(path, X_OK);
+	// free (path);
+	return (ret);
 }
 
-int	find_path(t_pipex *pipex)
+int	path_solver(char *path_env, char **cmd)
 {
-	char *path_lst;
+	char	**path_lst;
+	char	*tmp;
+	int		i;
+
+	if (!path_env)
+		return (1);
+	i = 0;
+	path_lst = ft_split(path_env, ":");
+	while (path_lst[i])
+	{
+		if (!try_path(path_lst[i], cmd[0]))
+		{
+			tmp = cmd[0];
+			cmd[0] = ft_strdup(path_lst[i]);
+			// free_str_table(path_lst);
+			return (0);
+		}
+		i++;
+	}
+	// free_str_table(path_lst);
+	// free(path_env);
+	return (1);
+}
+
+int	find_cmd_path(t_pipex *pipex, char **cmd)
+{
+	char	*path_env;
 	
-	path_lst = find_var_value(pipex->env, "PATH");
-	free(path_lst);
+	if (!cmd)
+		return (1);
+	if (!access(cmd[0], X_OK))
+		return (0);
+	path_env = find_var_value("PATH", pipex->env);
+	if (path_solver(path_env, cmd))
+		return (1);
+	// free(path_env);
 	return (0);
 }
 
@@ -79,7 +128,7 @@ int	parsing(t_pipex *pipex, char **cmd, char **env)
 	if (store_cmd(cmd[1], cmd[2], pipex))
 		return (1);
 	pipex->env = env;
-	if (find_path(pipex))
+	if (find_cmd_path(pipex, pipex->cmd_1) || find_cmd_path(pipex, pipex->cmd_2))
 		return (1);
 	return (0);
 }

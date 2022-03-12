@@ -1,38 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:30 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 22:19:18 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 20:22:19 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 20:22:47 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
+#include "pipex.h"
 
-# define PIPEX_H
-
-# include "parsing.h"
-# include "utils.h"
-#include "exec.h"
-
-#include <stdlib.h>
-#include <unistd.h>
-
-# define OPEN_FAILURE 1
-
-typedef struct s_pipex
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	**env;
-	int		fd_1;
-	int		fd_2;
-	char	**cmd_1;
-	char	**cmd_2;
-} 				t_pipex;
+	char	*r;
+	int		j;
 
-int		parsing(t_pipex *pipe, char **cmd, char **env);
-int		exec(t_pipex *pipex);
-
-#endif
+	j = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	r = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!r)
+		return (NULL);
+	while (*s1)
+	{
+		r[j++] = *s1;
+		s1++;
+	}
+	while (*s2)
+	{
+		r[j++] = *s2;
+		s2++;
+	}
+	r[j] = '\0';
+	return (r);
+}

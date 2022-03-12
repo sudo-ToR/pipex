@@ -1,38 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/12 15:33:30 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 22:19:18 by lnoirot          ###   ########.fr       */
+/*   Created: 2022/03/12 21:39:03 by lnoirot           #+#    #+#             */
+/*   Updated: 2022/03/12 22:48:43 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
+#include "pipex.h"
+#include <stdio.h>
 
-# define PIPEX_H
-
-# include "parsing.h"
-# include "utils.h"
-#include "exec.h"
-
-#include <stdlib.h>
-#include <unistd.h>
-
-# define OPEN_FAILURE 1
-
-typedef struct s_pipex
+int	*create_pipe()
 {
-	char	**env;
-	int		fd_1;
-	int		fd_2;
-	char	**cmd_1;
-	char	**cmd_2;
-} 				t_pipex;
+	int	fd_pipe[2];
 
-int		parsing(t_pipex *pipe, char **cmd, char **env);
-int		exec(t_pipex *pipex);
+	if (pipe(fd_pipe) < 0)
+		return (NULL);
+	return (fd_pipe);
+}
 
-#endif
+int	exec(t_pipex *pipex)
+{
+	pid_t	pid;
+	int		stat_loc;
+
+	pid = fork();
+	if (pid == -1)
+		return (EXEC_FAIL);
+	if (!pid)
+	{
+		execve(pipex->cmd_1[0], pipex->cmd_1, pipex->env);
+	}
+	else
+		waitpid(pid, &stat_loc, 0);
+	return (0);
+}
