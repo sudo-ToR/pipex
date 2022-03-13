@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 21:39:03 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 12:01:59 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:09:09 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	exec(t_pipex *pipex)
 		dup2(pipex->fd_1, 0);
 		execve(pipex->cmd_1[0], pipex->cmd_1, pipex->env);
 	}
-	else
-		waitpid(pid, &stat_loc, 0);
 	pid = fork();
 	if (!pid)
 	{
@@ -39,6 +37,6 @@ int	exec(t_pipex *pipex)
 		execve(pipex->cmd_2[0], pipex->cmd_2, pipex->env);
 	}
 	else
-		waitpid(pid, &stat_loc, 0);
+		wait(&stat_loc);
 	return (0);
 }
