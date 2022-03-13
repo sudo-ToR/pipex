@@ -6,23 +6,24 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 12:05:59 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 14:06:15 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 15:11:12 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	try_path(char *to_try, char *name)
+int	try_path(char **to_try, char *name)
 {
-	char	*path;
 	char	*tmp;
 	int		ret;
 
-	tmp = to_try;
-	to_try = ft_strjoin(to_try, "/");
+	tmp = *to_try;
+	*to_try = ft_strjoin(*to_try, "/");
 	free(tmp);
-	path = ft_strjoin(to_try, name);
-	ret = access(path, X_OK);
+	tmp = *to_try;
+	*to_try = ft_strjoin(*to_try, name);
+	free(tmp);
+	ret = access(*to_try, X_OK);
 	return (ret);
 }
 
@@ -37,7 +38,7 @@ int	path_solver(char *path_env, char **cmd)
 	path_lst = ft_split(path_env, ":");
 	while (path_lst[i])
 	{
-		if (!try_path(path_lst[i], cmd[0]))
+		if (!try_path(&path_lst[i], cmd[0]))
 		{
 			cmd[0] = ft_strdup(path_lst[i]);
 			free_str_table(path_lst);
