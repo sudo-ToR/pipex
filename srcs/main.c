@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 17:02:29 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 17:11:58 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	error_msg(int error)
 	if (error == PIPE_FAILURE)
 		ft_putstr_fd("Fail to open pipe\n", 2);
 	if (error == EXEC_FAIL)
-		ft_putstr_fd("Fail to execute\n", 2);
+		ft_putstr_fd("Can't open such file or directory\n", 2);
 }
 
 int	main(int ac, char **av, char **env)
