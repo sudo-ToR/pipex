@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 12:05:59 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 13:48:28 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 14:00:46 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	try_path(char *to_try, char *name)
 	free(tmp);
 	path = ft_strjoin(to_try, name);
 	ret = access(path, X_OK);
-	// free (path);
 	return (ret);
 }
 

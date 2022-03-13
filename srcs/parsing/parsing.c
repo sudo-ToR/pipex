@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:39:52 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 13:48:10 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:59:50 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	find_cmd_path(t_pipex *pipex, char **cmd)
 	path_env = find_var_value("PATH", pipex->env);
 	if (path_solver(path_env, cmd))
 		return (1);
-	//free path_env ?
 	return (0);
 }
 
