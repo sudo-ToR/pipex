@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:46:27 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 20:22:54 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 12:01:09 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 # define UTILS_H
 
-#include <unistd.h>
+# include <unistd.h>
 
 size_t	ft_strlen(const char *s);
 void	ft_putstr_fd(char *s, int fd);

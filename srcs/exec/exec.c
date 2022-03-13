@@ -6,21 +6,12 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 21:39:03 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/12 22:48:43 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 12:01:59 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include <stdio.h>
-
-int	*create_pipe()
-{
-	int	fd_pipe[2];
-
-	if (pipe(fd_pipe) < 0)
-		return (NULL);
-	return (fd_pipe);
-}
 
 int	exec(t_pipex *pipex)
 {
@@ -32,7 +23,20 @@ int	exec(t_pipex *pipex)
 		return (EXEC_FAIL);
 	if (!pid)
 	{
+		dup2(pipex->fd_pipe[1], 1);
+		close(pipex->fd_pipe[0]);
+		dup2(pipex->fd_1, 0);
 		execve(pipex->cmd_1[0], pipex->cmd_1, pipex->env);
+	}
+	else
+		waitpid(pid, &stat_loc, 0);
+	pid = fork();
+	if (!pid)
+	{
+		dup2(pipex->fd_pipe[0], 0);
+		close(pipex->fd_pipe[1]);
+		dup2(pipex->fd_2, 1);
+		execve(pipex->cmd_2[0], pipex->cmd_2, pipex->env);
 	}
 	else
 		waitpid(pid, &stat_loc, 0);

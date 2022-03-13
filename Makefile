@@ -6,7 +6,7 @@
 #    By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 15:31:28 by lnoirot           #+#    #+#              #
-#    Updated: 2022/03/12 22:33:57 by lnoirot          ###   ########.fr        #
+#    Updated: 2022/03/13 12:32:33 by lnoirot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,8 @@ EXEC_PATH		=	exec/
 
 PARSING_LST		=	$(addprefix $(PARSING_PATH), \
 									parsing.c \
+									env.c \
+									path_solver.c \
 					)
 
 EXEC_LST		=	$(addprefix $(EXEC_PATH), \
@@ -45,6 +47,7 @@ UTILS_LST		=	$(addprefix $(UTILS_PATH), \
 									free_str_table.c \
 									ft_strrchr.c \
 									ft_strjoin.c \
+									free_pipex.c \
 					)
 
 SRCS			=	$(addprefix $(SRCS_PATH), \
