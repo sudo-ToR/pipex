@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 12:05:59 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 12:38:54 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 13:48:28 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	try_path(char *to_try, char *name)
 int	path_solver(char *path_env, char **cmd)
 {
 	char	**path_lst;
-	char	*tmp;
 	int		i;
 
 	if (!path_env)
@@ -41,7 +40,6 @@ int	path_solver(char *path_env, char **cmd)
 	{
 		if (!try_path(path_lst[i], cmd[0]))
 		{
-			tmp = cmd[0];
 			cmd[0] = ft_strdup(path_lst[i]);
 			free_str_table(path_lst);
 			return (0);
