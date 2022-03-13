@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:39:52 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 15:14:32 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 16:55:50 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,7 @@ int	create_pipe(int fd_pipe[2])
 int	open_fd(char *fd_1, char *fd_2, t_pipex *pipex)
 {
 	pipex->fd_1 = open(fd_1, O_RDONLY);
-	if (pipex->fd_1 < 0)
-		return (OPEN_FAILURE);
 	pipex->fd_2 = open(fd_2, O_CREAT | O_WRONLY | O_TRUNC, UMASK_MODE_OPEN);
-	if (pipex->fd_2 < 0)
-	{
-		close(pipex->fd_1);
-		return (OPEN_FAILURE);
-	}
 	return (0);
 }
 
@@ -56,6 +49,8 @@ int	find_cmd_path(t_pipex *pipex, char **cmd)
 
 	if (!cmd)
 		return (1);
+	if (!cmd[0])
+		return (1);
 	if (!access(cmd[0], X_OK))
 		return (0);
 	path_env = find_var_value("PATH", pipex->env);
@@ -70,8 +65,7 @@ int	find_cmd_path(t_pipex *pipex, char **cmd)
 
 int	parsing(t_pipex *pipex, char **cmd, char **env)
 {
-	if (open_fd(cmd[0], cmd[3], pipex))
-		return (OPEN_FAILURE);
+	open_fd(cmd[0], cmd[3], pipex);
 	if (store_cmd(cmd[1], cmd[2], pipex))
 		return (STORE_CMD_FAILURE);
 	pipex->env = env;

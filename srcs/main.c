@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:33:02 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 12:41:03 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 17:02:29 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	error_msg(int error)
 {
 	if (error == OPEN_FAILURE)
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd("Open fail to execute\n", 2);
 	if (error == STORE_CMD_FAILURE)
 		ft_putstr_fd("Fail to store the cmd\n", 2);
 	if (error == CMD_NOT_FOUND)

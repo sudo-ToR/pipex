@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:33:30 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 12:32:20 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 16:34:51 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ typedef struct s_pipex
 int		parsing(t_pipex *pipe, char **cmd, char **env);
 int		exec(t_pipex *pipex);
 void	free_pipex(t_pipex *to_free);
+void	error_msg(int error);
 
 #endif
