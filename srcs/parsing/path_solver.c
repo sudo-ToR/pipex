@@ -6,7 +6,7 @@
 /*   By: lnoirot <lnoirot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 12:05:59 by lnoirot           #+#    #+#             */
-/*   Updated: 2022/03/13 14:00:46 by lnoirot          ###   ########.fr       */
+/*   Updated: 2022/03/13 14:04:23 by lnoirot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int	path_solver(char *path_env, char **cmd)
 		{
 			cmd[0] = ft_strdup(path_lst[i]);
 			free_str_table(path_lst);
+			free(path_env);
 			return (0);
 		}
 		i++;
 	}
 	free_str_table(path_lst);
+	free(path_env);
 	return (1);
 }
